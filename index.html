@@ -110,7 +110,7 @@
      /* alert(`Thank you for submitting your details!\n\nPersona: ${persona}\nEdge Conditions: ${edge}\nProject Key: ${projectKey}\nNotification Email: ${jiraUser}\nLabel for Epics / User Stories: ${jiraLabel}`);      // TODO: Securely handle data & connect to backend */
     });
     try {
-        const response = await fetch("https://your-backend-url.onrender.com/api/generate-upload", {
+        const response = await fetch("https://ezepics-backend.onrender.com/api/generate-upload", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ persona, edge, projectKey, jiraUser, jiraPass })
