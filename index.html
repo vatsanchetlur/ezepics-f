@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EZEPICS - Landing Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    header {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+    }
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+     -width: 500px;
+      margin-bottom: 2rem;
+    }
+    fieldset {
+      border: 1px solid #00c6ff;
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    legend {
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 0 0.5rem;
+      color: #00c6ff;
+    }
+    input {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      width: 100%;
+    }
+    button {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 25px;
+      background-color: #00c6ff;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #0072ff;
+    }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.8rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>EZEPICS</header>
+  <p>Your intelligent app for generating, managing, and automating user stories and epics.</p>
+
+  <form id="userForm">
+    <fieldset>
+      <legend>User Context</legend>
+      <input type="text" id="persona" placeholder="Enter the user persona" required />
+      <input type="text" id="edge" placeholder="Edge Conditions" required />
+    </fieldset>
+
+    <fieldset>
+      <legend>Enter JIRA Details</legend>
+      <input type="text" id="projectKey" placeholder="Project Key" required />
+      <input type="text" id="jiraLabel" placeholder="Label for Epics / User Stories" required />
+      <input type="text" id="jiraUser" placeholder="Notification Email" required />
+      
+    </fieldset>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById("userForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const persona = document.getElementById("persona").value;
+      const edge = document.getElementById("edge").value;
+      const projectKey = document.getElementById("projectKey").value;
+      const jiraUser = document.getElementById("jiraUser").value;
+      const jiraLabel = document.getElementById("jiraLabel").value;
+
+     /* alert(`Thank you for submitting your details!\n\nPersona: ${persona}\nEdge Conditions: ${edge}\nProject Key: ${projectKey}\nNotification Email: ${jiraUser}\nLabel for Epics / User Stories: ${jiraLabel}`);      // TODO: Securely handle data & connect to backend */
+    });
+  </script>
+</body>
+</html>
