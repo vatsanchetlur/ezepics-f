@@ -52,35 +52,10 @@
       document.getElementById('visitCounter').innerText = 'Number of visits: ' + localStorage.getItem('visitCount');
     });
 
-    document.getElementById("userForm").addEventListener("submit", function(e) {
+    // Form submission logic
+    document.getElementById("userForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const persona = document.getElementById("persona").value;
       const edge = document.getElementById("edge").value;
       const projectKey = document.getElementById("projectKey").value;
-      const jiraUser = document.getElementById("jiraUser").value;
-      const jiraLabel = document.getElementById("jiraLabel").value;
-
-      /* alert(`Thank you for submitting your details!\n\nPersona: ${persona}\nEdge Conditions: ${edge}\nProject Key: ${projectKey}\nNotification Email: ${jiraUser}\nLabel for Epics / User Stories: ${jiraLabel}`);      // TODO: Securely handle data & connect to backend */
-    });
-    try {
-        const response = await fetch("https://ezepics-backend.onrender.com/api/generate-upload", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ persona, edge, projectKey, jiraUser, jiraPass })
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          alert("Success! Epic Key: " + result.epicKey);
-        } else {
-          alert("Error: " + result.error);
-        }
-      } catch (err) {
-        console.error(err);
-        alert("Something went wrong while submitting the form.");
-      }
-    </script>
-  
-</body>
-</html>
+      const jiraUser = document.getElementById("jiraUser").
