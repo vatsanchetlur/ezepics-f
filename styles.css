@@ -5,14 +5,16 @@ body {
     background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     color: #fff;
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;  /* Prevent horizontal scrolling */
 }
 
 /* Container for sidebar and main content */
 .container {
-    display: flex; /* Use flex to align sidebar and content side by side */
-    width: 100%;
+    display: flex;
     min-height: 100vh;
+    width: 100%;
 }
 
 /* Sidebar Styling */
@@ -26,7 +28,7 @@ body {
     justify-content: flex-start;
     position: sticky;
     top: 0;
-    height: 100vh; /* Make sidebar full-height */
+    height: 100vh; /* Ensure the sidebar takes up full height */
 }
 
 /* Sidebar Logo Styling */
@@ -52,14 +54,14 @@ body {
 
 /* Main Content Styling */
 .main-content {
-    flex: 1; /* Take up remaining space */
+    flex: 1; /* Takes the remaining space */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 20px;
-    overflow-y: auto; /* Allow scrolling if content overflows */
+    overflow-y: auto; /* Allow vertical scrolling for long content */
 }
 
 /* Header Styling */
