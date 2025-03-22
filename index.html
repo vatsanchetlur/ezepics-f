@@ -39,6 +39,16 @@
 
       <button type="submit">Submit</button>
     </form>
+
+    <!-- Section to display the GPT response -->
+    <div id="gptResponse" style="display:none;">
+      <h2>Generated Epic</h2>
+      <p id="epicSummary"></p>
+      <p id="epicDescription"></p>
+
+      <h3>Stories</h3>
+      <ul id="storiesList"></ul>
+    </div>
   </div>
 
   <script>
@@ -54,33 +64,49 @@
 
     // Async function for form submission
     document.getElementById("userForm").addEventListener("submit", async function(e) {
-  e.preventDefault();  // Prevent form from reloading the page
+      e.preventDefault();  // Prevent form from reloading the page
 
-  const persona = document.getElementById("persona").value;
-  const edge = document.getElementById("edge").value;
-  const projectKey = document.getElementById("projectKey").value;
-  const jiraUser = document.getElementById("jiraUser").value;
-  const jiraLabel = document.getElementById("jiraLabel").value;
+      const persona = document.getElementById("persona").value;
+      const edge = document.getElementById("edge").value;
+      const projectKey = document.getElementById("projectKey").value;
+      const jiraUser = document.getElementById("jiraUser").value;
+      const jiraLabel = document.getElementById("jiraLabel").value;
 
-  try {
-    const response = await fetch("https://ezepics-backend.onrender.com/api/generate-upload", { 
-      method: "POST",  // POST request, not GET
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ persona, edge, projectKey, jiraUser, jiraLabel }) // Send the data in the body
+      try {
+        const response = await fetch("http://localhost:3000/api/generate-upload", { // Update with your backend URL
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ persona, edge, projectKey, jiraUser, jiraLabel })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Display the response
+          const epic = result.epic;
+          const stories = result.stories;
+
+          document.getElementById('epicSummary').innerText = 'Summary: ' + epic.summary;
+          document.getElementById('epicDescription').innerText = 'Description: ' + epic.description;
+
+          const storiesList = document.getElementById('storiesList');
+          storiesList.innerHTML = ''; // Clear previous stories
+
+          stories.forEach(story => {
+            const li = document.createElement('li');
+            li.innerText = `Summary: ${story.summary}, Description: ${story.description}`;
+            storiesList.appendChild(li);
+          });
+
+          document.getElementById('gptResponse').style.display = 'block';  // Show the response section
+        } else {
+          alert("Error: " + result.error);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Something went wrong while submitting the form.");
+      }
     });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      alert("Success! Epic Key: " + result.epicKey);
-    } else {
-      alert("Error: " + result.error);
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Something went wrong while submitting the form.");
-  }
-});
   </script>
 </body>
 </html>
