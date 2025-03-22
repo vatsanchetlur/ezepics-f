@@ -7,47 +7,52 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="sidebar">
-    <a href="https://lucid.app/documents#/home?folder_id=recent" target="_blank">
-      <img src="lucid.png" alt="LucidChart Logo" class="logo">
-    </a>
-    <a href="https://libertymutual.atlassian.net/jira/" target="_blank">
-      <img src="jira.png" alt="JIRA Logo" class="logo">
-    </a>
-    <div id="visitCounter">Number of visits: 0</div>
-    <a href="feedback.html" target="_blank" class="feedback-link">
-      <img src="feedback.png" alt="Feedback Icon" class="logo">
-    </a>
-  </div>
-  <div class="main-content">
-    <header>EZ-EPICS</header>
-    <p>Your intelligent app for generating, managing,<br>and automating EPICS and User Stories.</p>
+  <div class="container">
+    <!-- Sidebar Section -->
+    <div class="sidebar">
+      <a href="https://lucid.app/documents#/home?folder_id=recent" target="_blank">
+        <img src="lucid.png" alt="LucidChart Logo" class="logo">
+      </a>
+      <a href="https://libertymutual.atlassian.net/jira/" target="_blank">
+        <img src="jira.png" alt="JIRA Logo" class="logo">
+      </a>
+      <div id="visitCounter">Number of visits: 0</div>
+      <a href="feedback.html" target="_blank" class="feedback-link">
+        <img src="feedback.png" alt="Feedback Icon" class="logo">
+      </a>
+    </div>
 
-    <form id="userForm">
-      <fieldset>
-        <legend>Persona Context</legend>
-        <input type="text" id="persona" placeholder="Enter the user persona" required />
-        <input type="text" id="edge" placeholder="Additional Prompts" required />
-      </fieldset>
+    <!-- Main Content Section -->
+    <div class="main-content">
+      <header>EZ-EPICS</header>
+      <p>Your intelligent app for generating, managing,<br>and automating EPICS and User Stories.</p>
 
-      <fieldset>
-        <legend>Enter JIRA Details</legend>
-        <input type="text" id="projectKey" placeholder="Project Key" required />
-        <input type="text" id="jiraLabel" placeholder="Label for Epics / User Stories" required />
-        <input type="text" id="jiraUser" placeholder="Notification Email" required />
-      </fieldset>
+      <form id="userForm">
+        <fieldset>
+          <legend>Persona Context</legend>
+          <input type="text" id="persona" placeholder="Enter the user persona" required />
+          <input type="text" id="edge" placeholder="Additional Prompts" required />
+        </fieldset>
 
-      <button type="submit">Submit</button>
-    </form>
+        <fieldset>
+          <legend>Enter JIRA Details</legend>
+          <input type="text" id="projectKey" placeholder="Project Key" required />
+          <input type="text" id="jiraLabel" placeholder="Label for Epics / User Stories" required />
+          <input type="text" id="jiraUser" placeholder="Notification Email" required />
+        </fieldset>
 
-    <!-- Section to display the GPT response -->
-    <div id="gptResponse" style="display:none;">
-      <h2>Generated Epic</h2>
-      <p id="epicSummary"></p>
-      <p id="epicDescription"></p>
+        <button type="submit">Submit</button>
+      </form>
 
-      <h3>Stories</h3>
-      <ul id="storiesList"></ul>
+      <!-- Section to display the GPT response -->
+      <div id="gptResponse" style="display:none;">
+        <h2>Generated Epic</h2>
+        <p id="epicSummary"></p>
+        <p id="epicDescription"></p>
+
+        <h3>Stories</h3>
+        <ul id="storiesList"></ul>
+      </div>
     </div>
   </div>
 
@@ -73,7 +78,7 @@
       const jiraLabel = document.getElementById("jiraLabel").value;
 
       try {
-        const response = await fetch("https://ezepics-backend.onrender.com/api/generate-upload", { // Update with your backend URL
+        const response = await fetch("https://ezepics-backend.onrender.com/api/generate-upload", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ persona, edge, projectKey, jiraUser, jiraLabel })
