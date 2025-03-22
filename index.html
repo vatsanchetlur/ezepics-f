@@ -39,12 +39,32 @@
 
       <button type="submit">Submit</button>
     </form>
+
+    <!-- Section to display the GPT response -->
+    <div id="gptResponse" style="display:none;">
+      <h2>Generated Epic</h2>
+      <p id="epicSummary"></p>
+      <p id="epicDescription"></p>
+
+      <h3>Stories</h3>
+      <ul id="storiesList"></ul>
+    </div>
   </div>
 
   <script>
+    // Visit counter logic
+    document.addEventListener('DOMContentLoaded', (event) => {
+      if (localStorage.getItem('visitCount')) {
+        localStorage.setItem('visitCount', Number(localStorage.getItem('visitCount')) + 1);
+      } else {
+        localStorage.setItem('visitCount', 1);
+      }
+      document.getElementById('visitCounter').innerText = 'Number of visits: ' + localStorage.getItem('visitCount');
+    });
+
     // Async function for form submission
     document.getElementById("userForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
+      e.preventDefault();  // Prevent form from reloading the page
 
       const persona = document.getElementById("persona").value;
       const edge = document.getElementById("edge").value;
@@ -53,7 +73,7 @@
       const jiraLabel = document.getElementById("jiraLabel").value;
 
       try {
-        const response = await fetch("http://localhost:3000/api/generate-upload", {
+        const response = await fetch("http://localhost:3000/api/generate-upload", { // Update with your backend URL
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ persona, edge, projectKey, jiraUser, jiraLabel })
@@ -62,14 +82,23 @@
         const result = await response.json();
 
         if (response.ok) {
+          // Display the response
           const epic = result.epic;
           const stories = result.stories;
-          const epicSummary = encodeURIComponent(epic.summary);
-          const epicDescription = encodeURIComponent(epic.description);
-          const storiesJSON = encodeURIComponent(JSON.stringify(stories));
 
-          // Redirect to epic.html with data
-          window.location.href = `epic.html?epicSummary=${epicSummary}&epicDescription=${epicDescription}&stories=${storiesJSON}`;
+          document.getElementById('epicSummary').innerText = 'Summary: ' + epic.summary;
+          document.getElementById('epicDescription').innerText = 'Description: ' + epic.description;
+
+          const storiesList = document.getElementById('storiesList');
+          storiesList.innerHTML = ''; // Clear previous stories
+
+          stories.forEach(story => {
+            const li = document.createElement('li');
+            li.innerText = `Summary: ${story.summary}, Description: ${story.description}`;
+            storiesList.appendChild(li);
+          });
+
+          document.getElementById('gptResponse').style.display = 'block';  // Show the response section
         } else {
           alert("Error: " + result.error);
         }
