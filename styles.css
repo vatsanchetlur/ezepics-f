@@ -77,6 +77,11 @@ input {
     color: #fff;
 }
 
+.input-group.spaced {
+    margin-top: 1.5rem;
+  }
+  
+
 input#persona {
     height: 5rem; /* Increased height for persona input */
 }
@@ -140,3 +145,15 @@ h1 {
     color: #fff;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
+
+select {
+    padding: 1rem;
+    height: 3.5rem; /* adjust height as needed */
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    width: 100%;
+  }
+  

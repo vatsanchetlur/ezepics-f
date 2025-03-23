@@ -14,12 +14,17 @@
     <form id="userForm">
       <fieldset>
         <legend>Persona Context</legend>
-        <input type="text" id="persona" placeholder="Enter the user persona" required />
 
-        <label for="edge">Prompt Library</label>
-        <select id="edge" required>
-          <option value="" disabled selected>Select a prompt</option>
-        </select>
+        <div class="input-group">
+          <input type="text" id="persona" placeholder="Enter the user persona" required />
+        </div>
+
+       <div class="input-group spaced">
+         <!-- <label for="edge">Prompt Library</label> -->
+         <select id="edge" required>
+            <option value="" disabled selected>Prompt Library</option>
+         </select>
+      </div>
       </fieldset>
 
       <fieldset>
