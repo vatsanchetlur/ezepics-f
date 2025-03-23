@@ -88,6 +88,20 @@ input#persona {
     height: 5rem; /* Increased height for persona input */
 }
 
+textarea#persona {
+    width: 100%;
+    height: 5rem; /* or adjust to fit your needs */
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #333;
+    color: #fff;
+    resize: vertical; /* allows resizing up/down only */
+    box-sizing: border-box;
+  }
+
+  
 select#edge {
     width: 100%;
     padding: 1rem;
