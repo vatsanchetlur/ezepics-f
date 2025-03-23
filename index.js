@@ -1,5 +1,6 @@
 // Visit counter logic
 document.addEventListener('DOMContentLoaded', async () => {
+  // Count visits using localStorage
   if (localStorage.getItem('visitCount')) {
     localStorage.setItem('visitCount', Number(localStorage.getItem('visitCount')) + 1);
   } else {
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     counterElement.innerText = 'Number of visits: ' + localStorage.getItem('visitCount');
   }
 
-  // Load Prompt Library options from server
+  // Load Prompt Library options from backend
   try {
     const res = await fetch('https://ezepics-backend.onrender.com/api/prompts');
     const promptData = await res.json();
@@ -38,8 +39,32 @@ document.getElementById("userForm").addEventListener("submit", async function (e
   const jiraUser = document.getElementById("jiraUser").value;
   const jiraLabel = document.getElementById("jiraLabel").value;
 
-  // ✅ Build prompt using the persona and selected prompt style (edge)
-  const prompt = `Based on the user persona: "${persona}", ${edge}, and return the result in JSON format with an Epic and User Stories.`;
+  // ✅ Structured GPT-friendly prompt
+  const prompt = `
+You are a product owner generating Agile documentation.
+
+Persona:
+${persona}
+
+Task:
+${edge}
+
+Return the response as JSON in this format:
+{
+  "epic": {
+    "summary": "string",
+    "description": "string"
+  },
+  "stories": [
+    {
+      "summary": "string",
+      "description": "string",
+      "acceptanceCriteria": ["criteria 1", "criteria 2"],
+      "tasks": ["task 1", "task 2"]
+    }
+  ]
+}
+`;
 
   const payload = { persona, edge, projectKey, jiraUser, jiraLabel, prompt };
   console.log("Sending data to backend:", payload);
@@ -54,7 +79,7 @@ document.getElementById("userForm").addEventListener("submit", async function (e
     const result = await response.json();
     console.log("Received from backend:", result);
 
-    if (response.ok) {
+    if (response.ok && result.epic && result.stories) {
       const epic = result.epic;
       const stories = result.stories;
 
@@ -66,16 +91,30 @@ document.getElementById("userForm").addEventListener("submit", async function (e
 
       stories.forEach(story => {
         const li = document.createElement('li');
-        li.innerText = `Summary: ${story.summary}, Description: ${story.description}`;
+
+        // Create basic story text
+        let storyText = `Summary: ${story.summary}\nDescription: ${story.description}`;
+
+        // Add acceptance criteria
+        if (story.acceptanceCriteria && story.acceptanceCriteria.length) {
+          storyText += `\nAcceptance Criteria:\n - ${story.acceptanceCriteria.join('\n - ')}`;
+        }
+
+        // Add tasks
+        if (story.tasks && story.tasks.length) {
+          storyText += `\nTasks:\n - ${story.tasks.join('\n - ')}`;
+        }
+
+        li.innerText = storyText;
         storiesList.appendChild(li);
       });
 
       document.getElementById('gptResponse').style.display = 'block';
     } else {
-      alert("Error: " + result.error);
+      alert("Error: " + (result.error || "Invalid response structure."));
     }
   } catch (err) {
-    console.error(err);
+    console.error("Fetch error:", err);
     alert("Something went wrong while submitting the form.");
   }
 });
