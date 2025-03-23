@@ -88,6 +88,19 @@ input#persona {
     height: 5rem; /* Increased height for persona input */
 }
 
+select#edge {
+    width: 100%;
+    padding: 1rem;
+    height: 5rem; /* ← increased height */
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    box-sizing: border-box;
+  }
+
+  
 /* Button Styling */
 button {
     padding: 1rem 2rem;
