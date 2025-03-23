@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const jiraUser = document.getElementById("jiraUser").value;
     const jiraLabel = document.getElementById("jiraLabel").value;
   
-    const prompt = `Based on the user persona: "${persona}" and edge conditions: "${edge}", generate 1 Epic and 5 detailed user stories in JSON format.`;
+    const prompt = `Based on the user persona: "${persona}" create 1 Epic and edge conditions: "${edge}", in JSON format.`;
   
     try {
       const response = await fetch("https://ezepics-backend.onrender.com/api/generate-upload", {
