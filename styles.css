@@ -110,6 +110,33 @@ label {
     color: #fff;
     margin-bottom: 0.4rem;
 }
+input#persona {
+    height: 5rem; /* Increase the height to double the size */
+    margin-left: -10px;
+}
+
+input#edge {
+    height: 3rem; /* Increase the height to double the size */
+    margin-left: -10px;
+}
+
+input#projectKey {
+    height: 2rem; /* Increase the height to double the size */
+    margin-left: -10px;
+
+}
+
+input#jiraUser {
+    height: 2rem; /* Increase the height to double the size */
+    margin-left: -10px;
+
+}
+
+
+input#jiraLabel {
+    height: 2rem; /* Increase the height to double the size */
+    margin-left: -10px;
+}
 
 /* Button Styling */
 button {
