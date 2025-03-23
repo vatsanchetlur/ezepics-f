@@ -15,9 +15,11 @@
     <form id="userForm">
       <fieldset>
         <legend>Persona Context</legend>
-        <div class="input-group">
-          <textarea id="persona" placeholder="Enter the user persona" required wrap="soft"></textarea>
+        <div class="floating-label">
+          <textarea id="persona" placeholder=" " required></textarea>
+          <label for="persona">User Persona</label>
         </div>
+
         <div class="input-group spaced">
           <select id="edge" required>
             <option value="" disabled selected>Prompt Library</option>
@@ -27,15 +29,23 @@
 
       <fieldset>
         <legend>Enter JIRA Details</legend>
-        <input type="text" id="projectKey" placeholder="Project Key" required />
-        <input type="text" id="jiraLabel" placeholder="Label for Epics / User Stories" required />
-        <input type="text" id="jiraUser" placeholder="Notification Email" required />
+        <div class="floating-label">
+          <input type="text" id="projectKey" placeholder=" " required />
+          <label for="projectKey">Project Key</label>
+        </div>
+        <div class="floating-label">
+          <input type="text" id="jiraLabel" placeholder=" " required />
+          <label for="jiraLabel">Label for Epics / User Stories</label>
+        </div>
+        <div class="floating-label">
+          <input type="text" id="jiraUser" placeholder=" " required />
+          <label for="jiraUser">Notification Email</label>
+        </div>
       </fieldset>
 
       <button type="submit">Submit</button>
     </form>
 
-    <!-- Spinner, Result Message & Download Buttons -->
     <div id="gptResponse">
       <div id="spinner" class="spinner" style="display:none;"></div>
       <p id="resultMessage" style="display:none;"></p>
