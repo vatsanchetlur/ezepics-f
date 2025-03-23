@@ -41,14 +41,18 @@ document.getElementById("userForm").addEventListener("submit", async function (e
   // ✅ Build prompt using the persona and selected prompt style (edge)
   const prompt = `Based on the user persona: "${persona}", ${edge}, and return the result in JSON format with an Epic and User Stories.`;
 
+  const payload = { persona, edge, projectKey, jiraUser, jiraLabel, prompt };
+  console.log("Sending data to backend:", payload);
+
   try {
     const response = await fetch("https://ezepics-backend.onrender.com/api/generate-upload", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ persona, edge, projectKey, jiraUser, jiraLabel, prompt })
+      body: JSON.stringify(payload)
     });
 
     const result = await response.json();
+    console.log("Received from backend:", result);
 
     if (response.ok) {
       const epic = result.epic;
