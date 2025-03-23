@@ -1,5 +1,9 @@
-// Visit counter logic
+// Ensure the download buttons are disabled on DOM load
 document.addEventListener('DOMContentLoaded', async () => {
+  // Explicitly disable the download buttons
+  document.getElementById("downloadJsonBtn").disabled = true;
+  document.getElementById("downloadPdfBtn").disabled = true;
+
   // Count visits using localStorage
   if (localStorage.getItem('visitCount')) {
     localStorage.setItem('visitCount', Number(localStorage.getItem('visitCount')) + 1);
