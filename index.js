@@ -1,16 +1,8 @@
+// Ensure the download buttons are disabled on DOM load
 document.addEventListener('DOMContentLoaded', async () => {
-  // Log at the start to confirm the script is running.
-  console.log("DOM fully loaded, disabling download buttons.");
-
   // Explicitly disable the download buttons
-  const downloadJsonBtn = document.getElementById("downloadJsonBtn");
-  const downloadPdfBtn = document.getElementById("downloadPdfBtn");
-  downloadJsonBtn.disabled = true;
-  downloadPdfBtn.disabled = true;
-
-  // Log the current disabled state
-  console.log("downloadJsonBtn disabled:", downloadJsonBtn.disabled);
-  console.log("downloadPdfBtn disabled:", downloadPdfBtn.disabled);
+  document.getElementById("downloadJsonBtn").disabled = true;
+  document.getElementById("downloadPdfBtn").disabled = true;
 
   // Count visits using localStorage
   if (localStorage.getItem('visitCount')) {
@@ -44,6 +36,12 @@ let latestJson = null; // Global variable to store latest GPT response
 // Form submission handler
 document.getElementById("userForm").addEventListener("submit", async function (e) {
   e.preventDefault();
+
+  // Show spinner and hide message
+  const spinner = document.getElementById("spinner");
+  const resultMessage = document.getElementById("resultMessage");
+  spinner.style.display = "block";
+  resultMessage.style.display = "none";
 
   const persona = document.getElementById("persona").value;
   const edge = document.getElementById("edge").value;
@@ -90,26 +88,27 @@ Return the response as JSON in this format:
     const result = await response.json();
     console.log("Received from backend:", result);
 
+    // Hide spinner once response is received
+    spinner.style.display = "none";
+
     if (response.ok && result.epic && result.stories) {
       latestJson = result; // Save the response for download buttons
 
       // Enable the download buttons
       document.getElementById("downloadJsonBtn").disabled = false;
       document.getElementById("downloadPdfBtn").disabled = false;
-      console.log("Download buttons enabled.");
 
       // Display "Results are ready" message
-      const resultMessage = document.getElementById("resultMessage");
-      if (resultMessage) {
-        resultMessage.innerText = "Results are ready";
-        resultMessage.style.display = "block";
-      }
+      resultMessage.innerText = "Results are ready";
+      resultMessage.style.display = "block";
 
       console.log("Formatted GPT JSON:", JSON.stringify(result, null, 2));
     } else {
       alert("Error: " + (result.error || "Invalid response structure."));
     }
   } catch (err) {
+    // Hide spinner if there's an error
+    spinner.style.display = "none";
     console.error("Fetch error:", err);
     alert("Something went wrong while submitting the form.");
   }
