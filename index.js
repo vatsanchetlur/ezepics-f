@@ -79,32 +79,9 @@ Return the response as JSON in this format:
     console.log("Received from backend:", result);
 
     if (response.ok && result.epic && result.stories) {
-      latestJson = result; // Store for download
+      latestJson = result; // Save the response for download buttons
 
-      // Display the result in the DOM
-      const epic = result.epic;
-      const stories = result.stories;
-      document.getElementById('epicSummary').innerText = 'Summary: ' + epic.summary;
-      document.getElementById('epicDescription').innerText = 'Description: ' + epic.description;
-
-      const storiesList = document.getElementById('storiesList');
-      storiesList.innerHTML = '';
-      stories.forEach(story => {
-        const li = document.createElement('li');
-        let storyText = `Summary: ${story.summary}\nDescription: ${story.description}`;
-        if (story.acceptanceCriteria && story.acceptanceCriteria.length) {
-          storyText += `\nAcceptance Criteria:\n - ${story.acceptanceCriteria.join('\n - ')}`;
-        }
-        if (story.tasks && story.tasks.length) {
-          storyText += `\nTasks:\n - ${story.tasks.join('\n - ')}`;
-        }
-        li.innerText = storyText;
-        storiesList.appendChild(li);
-      });
-
-      document.getElementById('gptResponse').style.display = 'block';
-
-      // Log the pretty-printed JSON for debugging
+      // Remove content display in HTML (no DOM update here)
       console.log("Formatted GPT JSON:", JSON.stringify(result, null, 2));
     } else {
       alert("Error: " + (result.error || "Invalid response structure."));
