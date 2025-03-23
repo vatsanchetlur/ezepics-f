@@ -21,7 +21,7 @@ body {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.7); /* Optional: Slight background color for main content */
+    background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
 }
 
@@ -65,8 +65,10 @@ legend {
     color: #00c6ff;
 }
 
-/* Input Styling */
-input {
+/* Input, Textarea, and Select Styling */
+input,
+textarea,
+select {
     padding: 0.8rem;
     border: none;
     border-radius: 8px;
@@ -75,47 +77,40 @@ input {
     width: 100%;
     background-color: #333;
     color: #fff;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+/* Textarea Specific */
+textarea#persona {
+    height: 7rem;
+    resize: vertical;
+}
+
+/* Select Specific */
+select#edge {
+    height: 3.2rem;
+    font-size: 1.1rem;
+}
+
+/* Input Groups */
+.input-group {
+    width: 100%;
 }
 
 .input-group.spaced {
     margin-top: 1.5rem;
-  }
-  
-  .input-group {
-    width: 100%;
-
-input#persona {
-    height: 5rem; /* Increased height for persona input */
 }
 
-textarea#persona {
-    width: 100%;
-    height: 5rem;
-    padding: 1rem;
+/* Label Styling */
+label {
+    display: block;
+    font-family: inherit;
     font-size: 1rem;
-    background-color: #333;
     color: #fff;
-    border: none;
-    border-radius: 8px;
-    resize: vertical;
-    box-sizing: border-box;
-  }
-  
+    margin-bottom: 0.4rem;
+}
 
-  
-select#edge {
-    width: 100%;
-    padding: 1rem;
-    height: 5rem; /* ← increased height */
-    font-size: 1.1rem;
-    border-radius: 8px;
-    border: none;
-    background-color: #333;
-    color: #fff;
-    box-sizing: border-box;
-  }
-
-  
 /* Button Styling */
 button {
     padding: 1rem 2rem;
@@ -126,6 +121,8 @@ button {
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.3s;
+    width: auto;
+    display: inline-block;
 }
 
 button:hover {
@@ -161,7 +158,7 @@ footer {
     color: #ccc;
 }
 
-/* Extra Page Styling for the Epic Display */
+/* Headings */
 h2, h3 {
     font-size: 2rem;
     color: #00c6ff;
@@ -175,30 +172,3 @@ h1 {
     color: #fff;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
-
-/* select {
-    padding: 1rem;
-    height: 3.5rem; /* adjust height as needed */
-    font-size: 1rem;
-    border-radius: 8px;
-    border: none;
-    background-color: #333;
-    color: #fff;
-    width: 100%;
-  }
-
-  */ 
-
-  select {
-    width: 100%;
-    padding: 1rem;
-    height: 3.5rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: none;
-    background-color: #333;
-    color: #fff;
-    box-sizing: border-box; /* Ensure padding doesn't shrink width */
-  }
-  
-  
