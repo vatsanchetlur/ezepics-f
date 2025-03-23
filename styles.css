@@ -90,16 +90,20 @@ input#persona {
 
 textarea#persona {
     width: 100%;
-    height: 5rem; /* or adjust to fit your needs */
+    height: 5rem;
     padding: 1rem;
-    border: none;
-    border-radius: 8px;
     font-size: 1rem;
     background-color: #333;
     color: #fff;
-    resize: vertical; /* allows resizing up/down only */
+    border: none;
+    border-radius: 8px;
+    resize: vertical;
     box-sizing: border-box;
+    white-space: pre-wrap;     /* 🟢 ensures long lines wrap */
+    word-wrap: break-word;     /* 🟢 ensures wrapping within words if needed */
+    overflow-wrap: break-word; /* 🟢 modern alternative */
   }
+  
 
   
 select#edge {
