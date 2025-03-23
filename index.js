@@ -1,8 +1,16 @@
-// Ensure the download buttons are disabled on DOM load
 document.addEventListener('DOMContentLoaded', async () => {
+  // Log at the start to confirm the script is running.
+  console.log("DOM fully loaded, disabling download buttons.");
+
   // Explicitly disable the download buttons
-  document.getElementById("downloadJsonBtn").disabled = true;
-  document.getElementById("downloadPdfBtn").disabled = true;
+  const downloadJsonBtn = document.getElementById("downloadJsonBtn");
+  const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+  downloadJsonBtn.disabled = true;
+  downloadPdfBtn.disabled = true;
+
+  // Log the current disabled state
+  console.log("downloadJsonBtn disabled:", downloadJsonBtn.disabled);
+  console.log("downloadPdfBtn disabled:", downloadPdfBtn.disabled);
 
   // Count visits using localStorage
   if (localStorage.getItem('visitCount')) {
@@ -88,6 +96,7 @@ Return the response as JSON in this format:
       // Enable the download buttons
       document.getElementById("downloadJsonBtn").disabled = false;
       document.getElementById("downloadPdfBtn").disabled = false;
+      console.log("Download buttons enabled.");
 
       // Display "Results are ready" message
       const resultMessage = document.getElementById("resultMessage");
@@ -122,7 +131,6 @@ document.getElementById("downloadJsonBtn").addEventListener("click", () => {
 document.getElementById("downloadPdfBtn").addEventListener("click", () => {
   if (!latestJson) return;
   const { epic, stories } = latestJson;
-  // Using jsPDF from the global window.jspdf object
   const doc = new window.jspdf.jsPDF();
 
   doc.setFontSize(16);
