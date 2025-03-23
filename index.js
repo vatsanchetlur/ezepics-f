@@ -81,7 +81,17 @@ Return the response as JSON in this format:
     if (response.ok && result.epic && result.stories) {
       latestJson = result; // Save the response for download buttons
 
-      // Remove content display in HTML (no DOM update here)
+      // Enable the download buttons
+      document.getElementById("downloadJsonBtn").disabled = false;
+      document.getElementById("downloadPdfBtn").disabled = false;
+
+      // Display "Results are ready" message
+      const resultMessage = document.getElementById("resultMessage");
+      if (resultMessage) {
+        resultMessage.innerText = "Results are ready";
+        resultMessage.style.display = "block";
+      }
+
       console.log("Formatted GPT JSON:", JSON.stringify(result, null, 2));
     } else {
       alert("Error: " + (result.error || "Invalid response structure."));

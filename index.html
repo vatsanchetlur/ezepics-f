@@ -6,7 +6,6 @@
   <title>EZEPICS - Landing Page</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 </head>
 <body>
   <div class="main-content">
@@ -16,14 +15,9 @@
     <form id="userForm">
       <fieldset>
         <legend>Persona Context</legend>
-      
         <div class="input-group">
           <textarea id="persona" placeholder="Enter the user persona" required wrap="soft"></textarea>
-
-          
-
         </div>
-      
         <div class="input-group spaced">
           <!-- <label for="edge">Prompt Library</label> -->
           <select id="edge" required>
@@ -42,17 +36,13 @@
       <button type="submit">Submit</button>
     </form>
 
-    <!-- Section to display the GPT response -->
-    <div id="gptResponse" style="display:none;">
-      <h2>Generated Epic</h2>
-      <p id="epicSummary"></p>
-      <p id="epicDescription"></p>
-
-      <h3>Stories</h3>
-      <ul id="storiesList"></ul>
-      <button id="downloadJsonBtn">📥 Download JSON</button>
-      <button id="downloadPdfBtn">📄 Download PDF</button>
+    <!-- Section for download buttons only -->
+    <div id="gptResponse">
+      <p id="resultMessage" style="display:none;"></p>
+      <button id="downloadJsonBtn" disabled>📥 Download JSON</button>
+      <button id="downloadPdfBtn" disabled>📄 Download PDF</button>
     </div>
+    
   </div>
 
   <script src="index.js"></script>
