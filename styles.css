@@ -99,9 +99,6 @@ textarea#persona {
     border-radius: 8px;
     resize: vertical;
     box-sizing: border-box;
-    white-space: pre-wrap;     /* 🟢 ensures long lines wrap */
-    word-wrap: break-word;     /* 🟢 ensures wrapping within words if needed */
-    overflow-wrap: break-word; /* 🟢 modern alternative */
   }
   
 
