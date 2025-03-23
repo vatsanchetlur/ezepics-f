@@ -1,21 +1,7 @@
-// Ensure the download buttons are disabled on DOM load
 document.addEventListener('DOMContentLoaded', async () => {
-  // Explicitly disable the download buttons
   document.getElementById("downloadJsonBtn").disabled = true;
   document.getElementById("downloadPdfBtn").disabled = true;
 
-  // Count visits using localStorage
-  if (localStorage.getItem('visitCount')) {
-    localStorage.setItem('visitCount', Number(localStorage.getItem('visitCount')) + 1);
-  } else {
-    localStorage.setItem('visitCount', 1);
-  }
-  const counterElement = document.getElementById('visitCounter');
-  if (counterElement) {
-    counterElement.innerText = 'Number of visits: ' + localStorage.getItem('visitCount');
-  }
-
-  // Load Prompt Library options from backend
   try {
     const res = await fetch('https://ezepics-backend.onrender.com/api/prompts');
     const promptData = await res.json();
@@ -31,13 +17,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-let latestJson = null; // Global variable to store latest GPT response
+let latestJson = null;
 
-// Form submission handler
 document.getElementById("userForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  // Show spinner and hide message
   const spinner = document.getElementById("spinner");
   const resultMessage = document.getElementById("resultMessage");
   spinner.style.display = "block";
@@ -49,7 +33,6 @@ document.getElementById("userForm").addEventListener("submit", async function (e
   const jiraUser = document.getElementById("jiraUser").value;
   const jiraLabel = document.getElementById("jiraLabel").value;
 
-  // Build a structured prompt for GPT
   const prompt = `
 You are a product owner generating Agile documentation.
 
@@ -86,35 +69,27 @@ Return the response as JSON in this format:
       body: JSON.stringify(payload)
     });
     const result = await response.json();
-    console.log("Received from backend:", result);
 
-    // Hide spinner once response is received
     spinner.style.display = "none";
 
     if (response.ok && result.epic && result.stories) {
-      latestJson = result; // Save the response for download buttons
+      latestJson = result;
 
-      // Enable the download buttons
       document.getElementById("downloadJsonBtn").disabled = false;
       document.getElementById("downloadPdfBtn").disabled = false;
 
-      // Display "Results are ready" message
-      resultMessage.innerText = "Results are ready";
+      resultMessage.innerText = "✅ Results are ready";
       resultMessage.style.display = "block";
-
-      console.log("Formatted GPT JSON:", JSON.stringify(result, null, 2));
     } else {
       alert("Error: " + (result.error || "Invalid response structure."));
     }
   } catch (err) {
-    // Hide spinner if there's an error
     spinner.style.display = "none";
     console.error("Fetch error:", err);
     alert("Something went wrong while submitting the form.");
   }
 });
 
-// Download JSON button handler
 document.getElementById("downloadJsonBtn").addEventListener("click", () => {
   if (!latestJson) return;
   const blob = new Blob([JSON.stringify(latestJson, null, 2)], { type: 'application/json' });
@@ -126,7 +101,6 @@ document.getElementById("downloadJsonBtn").addEventListener("click", () => {
   URL.revokeObjectURL(url);
 });
 
-// Download PDF button handler (requires jsPDF)
 document.getElementById("downloadPdfBtn").addEventListener("click", () => {
   if (!latestJson) return;
   const { epic, stories } = latestJson;
@@ -134,7 +108,6 @@ document.getElementById("downloadPdfBtn").addEventListener("click", () => {
 
   doc.setFontSize(16);
   doc.text("EZEPICS - Epic & Stories", 10, 15);
-
   doc.setFontSize(12);
   doc.text(`Epic Summary: ${epic.summary}`, 10, 30);
   doc.text(`Epic Description: ${epic.description}`, 10, 40);
