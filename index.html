@@ -60,24 +60,25 @@
       </div>
     <div class="main-content">
       <header>EZ-EPICS</header>
-      <p>Your intelligent app for generating, managing,<br />and automating EPICS and User Stories.</p>
+      <p>Your intelligent app for automatic generation of EPICS / User Stories.</p>
 
       <form id="userForm">
         <fieldset>
           <legend>Persona Context</legend>
-          <div class="floating-label">
-            <textarea id="persona" placeholder=" " required></textarea>
+          <div class="floating-label" style="margin-top: 0;">
+            <textarea id="persona" placeholder=" " required style="height: 80px; margin-top: 0;"></textarea>
             <label for="persona">User Persona</label>
           </div>
 
-          <div class="input-group spaced">
+          <div class="input-group spaced" style="margin-top: -8px;">
             <select id="edge" required>
               <option value="" disabled selected>Prompt Library</option>
             </select>
           </div>
         </fieldset>
 
-        <fieldset>
+
+        <fieldset style="margin-top: 4px; padding-top: 4px;">
           <legend>Enter JIRA Details</legend>
           <div class="floating-label">
             <input type="text" id="projectKey" placeholder=" " required />
