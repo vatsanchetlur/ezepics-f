@@ -131,10 +131,54 @@
   </div>
 
   <script>
-  document.getElementById("userForm").addEventListener("submit", function (e) {
+  document.getElementById("userForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
     const spinner = document.getElementById("spinner");
-    if (spinner) {
-      spinner.scrollIntoView({ behavior: "smooth", block: "center" });
+    const resultMessage = document.getElementById("resultMessage");
+    const createInJiraBtn = document.getElementById("createInJiraBtn");
+
+    spinner.style.display = "block";
+    resultMessage.style.display = "none";
+    createInJiraBtn.disabled = true;
+
+    const persona = document.getElementById("persona").value;
+    const projectKey = document.getElementById("projectKey").value;
+    const jiraLabel = document.getElementById("jiraLabel").value;
+    const jiraUser = document.getElementById("jiraUser").value;
+
+    const data = {
+      epic: {
+        summary: persona,
+        description: `Epic for ${persona}`
+      },
+      stories: [
+        { summary: `Story 1 for ${persona}`, description: `Description for story 1` },
+        { summary: `Story 2 for ${persona}`, description: `Description for story 2` }
+      ],
+      mock: false
+    };
+
+    try {
+      const response = await fetch('/api/jira/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        resultMessage.textContent = `Created in JIRA ✅ Epic Key: ${result.epicKey}`;
+        createInJiraBtn.disabled = false;
+      } else {
+        resultMessage.textContent = `Error: ${result.error}`;
+      }
+    } catch (error) {
+      resultMessage.textContent = `Error: ${error.message}`;
+    } finally {
+      spinner.style.display = "none";
+      resultMessage.style.display = "block";
     }
   });
   </script>
