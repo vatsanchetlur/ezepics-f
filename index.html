@@ -6,51 +6,102 @@
   <title>EZEPICS - Landing Page</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    .layout-container {
+      display: flex;
+      align-items: flex-start;
+    }
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      gap: 30px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background-color: rgba(15, 32, 39, 0.9);
+      z-index: 10;
+    }
+    .sidebar img {
+      width: 80px;
+      cursor: pointer;
+    }
+    .main-content {
+      margin-left: 120px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-  <div class="main-content">
-    <header>EZ-EPICS</header>
-    <p>Your intelligent app for generating, managing,<br />and automating EPICS and User Stories.</p>
+  <div class="layout-container">
+    <div class="layout-container">
+      <div class="sidebar">
+        <a href="EZEPICSDesignDoc.pdf" target="_blank">
+          <img src="EZ-EpicsLogo.webp" alt="EZ Epics Logo" />
+        </a>
+        <a href="https://www.lucidchart.com/" target="_blank">
+          <img src="lucid.png" alt="Lucidchart Logo" />
+        </a>
+        <a href="https://libertymutual.atlassian.net/jira/plans" target="_blank">
+          <img src="jira.png" alt="JIRA Logo" />
+        </a>
+      </div>
+    <div class="main-content">
+      <header>EZ-EPICS</header>
+      <p>Your intelligent app for generating, managing,<br />and automating EPICS and User Stories.</p>
 
-    <form id="userForm">
-      <fieldset>
-        <legend>Persona Context</legend>
-        <div class="floating-label">
-          <textarea id="persona" placeholder=" " required></textarea>
-          <label for="persona">User Persona</label>
-        </div>
+      <form id="userForm">
+        <fieldset>
+          <legend>Persona Context</legend>
+          <div class="floating-label">
+            <textarea id="persona" placeholder=" " required></textarea>
+            <label for="persona">User Persona</label>
+          </div>
 
-        <div class="input-group spaced">
-          <select id="edge" required>
-            <option value="" disabled selected>Prompt Library</option>
-          </select>
-        </div>
-      </fieldset>
+          <div class="input-group spaced">
+            <select id="edge" required>
+              <option value="" disabled selected>Prompt Library</option>
+            </select>
+          </div>
+        </fieldset>
 
-      <fieldset>
-        <legend>Enter JIRA Details</legend>
-        <div class="floating-label">
-          <input type="text" id="projectKey" placeholder=" " required />
-          <label for="projectKey">Project Key</label>
-        </div>
-        <div class="floating-label">
-          <input type="text" id="jiraLabel" placeholder=" " required />
-          <label for="jiraLabel">Label for Epics / User Stories</label>
-        </div>
-        <div class="floating-label">
-          <input type="text" id="jiraUser" placeholder=" " required />
-          <label for="jiraUser">Notification Email</label>
-        </div>
-      </fieldset>
+        <fieldset>
+          <legend>Enter JIRA Details</legend>
+          <div class="floating-label">
+            <input type="text" id="projectKey" placeholder=" " required />
+            <label for="projectKey">Project Key</label>
+          </div>
+          <div class="floating-label">
+            <input type="text" id="jiraLabel" placeholder=" " required />
+            <label for="jiraLabel">Label for Epics / User Stories</label>
+          </div>
+          <div class="floating-label">
+            <input type="text" id="jiraUser" placeholder=" " required />
+            <label for="jiraUser">Notification Email</label>
+          </div>
+        </fieldset>
 
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
 
-    <div id="gptResponse">
-      <div id="spinner" class="spinner" style="display:none;"></div>
-      <p id="resultMessage" style="display:none;"></p>
-      <button id="downloadJsonBtn" disabled>📥 Download JSON</button>
-      <button id="downloadPdfBtn" disabled>📄 Download PDF</button>
+      <div id="gptResponse">
+        <div id="spinner" class="spinner" style="display:none;"></div>
+        <p id="resultMessage" style="display:none;"></p>
+        <button id="downloadJsonBtn" disabled>📥 Download JSON</button>
+        <button id="downloadPdfBtn" disabled>📄 Download PDF</button>
+      </div>
     </div>
   </div>
 
