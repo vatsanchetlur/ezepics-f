@@ -27,6 +27,16 @@ document.getElementById("userForm").addEventListener("submit", async function (e
   spinner.style.display = "block";
   resultMessage.style.display = "none";
 
+  // 🧭 Scroll to spinner in main-content
+  const container = document.querySelector(".main-content");
+  if (spinner && container) {
+    const offsetTop = spinner.offsetTop;
+    container.scrollTo({
+      top: offsetTop - 20,
+      behavior: "smooth"
+    });
+  }
+
   const persona = document.getElementById("persona").value;
   const edge = document.getElementById("edge").value;
   const projectKey = document.getElementById("projectKey").value;

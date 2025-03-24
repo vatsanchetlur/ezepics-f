@@ -7,9 +7,14 @@
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
     .layout-container {
       display: flex;
-      align-items: flex-start;
+      height: 100vh;
+      overflow: hidden;
     }
     .sidebar {
       display: flex;
@@ -17,56 +22,69 @@
       align-items: center;
       padding: 20px;
       gap: 30px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
+      width: 100px;
       background-color: rgba(15, 32, 39, 0.9);
-      z-index: 10;
     }
     .sidebar img {
       width: 80px;
       cursor: pointer;
     }
     .main-content {
-      margin-left: 120px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       text-align: center;
-      width: 100%;
-      padding: 20px;
+      padding: 10px;
       box-sizing: border-box;
-      background-color: rgba(0, 0, 0, 0.7);
-      border-radius: 10px;
+      overflow-y: auto;
+    }
+    form {
+      width: 100%;
+      max-width: 600px;
+    }
+    fieldset {
+      border: none;
+      padding: 10px 0;
+      margin: 10px 0;
+    }
+    .floating-label {
+      margin: 0 0 10px;
+    }
+    textarea#persona {
+      height: 120px;
+    }
+    button {
+      margin: 10px 5px;
+    }
+    #gptResponse {
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
   <div class="layout-container">
-    <div class="layout-container">
-      <div class="sidebar">
-        <a href="EZEPICSDesignDoc.pdf" target="_blank">
-          <img src="EZ-EpicsLogo.webp" alt="EZ Epics Logo" />
-        </a>
-        <a href="https://www.lucidchart.com/" target="_blank">
-          <img src="lucid.png" alt="Lucidchart Logo" />
-        </a>
-        <a href="https://libertymutual.atlassian.net/jira/plans" target="_blank">
-          <img src="jira.png" alt="JIRA Logo" />
-        </a>
-      </div>
-    <div class="main-content">
+    <div class="sidebar" style="position: fixed; top: 0; left: 0; height: 100vh;">
+      <a href="EZEPICSDesignDoc.pdf" target="_blank">
+        <img src="EZ-EpicsLogo.webp" alt="EZ Epics Logo" />
+      </a>
+      <a href="https://www.lucidchart.com/" target="_blank">
+        <img src="lucid.png" alt="Lucidchart Logo" />
+      </a>
+      <a href="https://libertymutual.atlassian.net/jira/plans" target="_blank">
+        <img src="jira.png" alt="JIRA Logo" />
+      </a>
+    </div>
+    <div class="main-content" style="margin-left: 100px; height: 100vh; overflow-y: auto;">
       <header>EZ-EPICS</header>
-      <p>Your intelligent app for automatic generation of EPICS / User Stories.</p>
+      <p>Your intelligent app for generating, managing,<br />and automating EPICS and User Stories.</p>
 
       <form id="userForm">
         <fieldset>
           <legend>Persona Context</legend>
           <div class="floating-label" style="margin-top: 0;">
-            <textarea id="persona" placeholder=" " required style="height: 80px; margin-top: 0;"></textarea>
+            <textarea id="persona" placeholder=" " required style="height: 120px; margin-top: 0;"></textarea>
             <label for="persona">User Persona</label>
           </div>
 
@@ -77,19 +95,18 @@
           </div>
         </fieldset>
 
-
         <fieldset style="margin-top: 4px; padding-top: 4px;">
           <legend>Enter JIRA Details</legend>
           <div class="floating-label">
-            <input type="text" id="projectKey" placeholder=" " required />
+            <input type="text" id="projectKey" placeholder=" " required value="EBBP" />
             <label for="projectKey">Project Key</label>
           </div>
           <div class="floating-label">
-            <input type="text" id="jiraLabel" placeholder=" " required />
+            <input type="text" id="jiraLabel" placeholder=" " required value="GenAI Generated" />
             <label for="jiraLabel">Label for Epics / User Stories</label>
           </div>
           <div class="floating-label">
-            <input type="text" id="jiraUser" placeholder=" " required />
+            <input type="text" id="jiraUser" placeholder=" " required value="cn.srivatsan@libertymutual.com" />
             <label for="jiraUser">Notification Email</label>
           </div>
         </fieldset>
@@ -107,14 +124,13 @@
   </div>
 
   <script>
-    document.getElementById("userForm").addEventListener("submit", function () {
-      const spinner = document.getElementById("spinner");
-      if (spinner) {
-        spinner.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    });
+  document.getElementById("userForm").addEventListener("submit", function (e) {
+    const spinner = document.getElementById("spinner");
+    if (spinner) {
+      spinner.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
   </script>
-
   <script src="index.js"></script>
 </body>
 </html>
