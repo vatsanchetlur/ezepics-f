@@ -38,7 +38,9 @@
       text-align: center;
       padding: 10px;
       box-sizing: border-box;
-      overflow-y: auto;
+      overflow-y: scroll;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* IE 10+ */
     }
     form {
       width: 100%;
@@ -61,6 +63,9 @@
     #gptResponse {
       margin-top: 10px;
     }
+  .main-content::-webkit-scrollbar {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -72,11 +77,10 @@
       <a href="https://www.lucidchart.com/" target="_blank">
         <img src="lucid.png" alt="Lucidchart Logo" />
       </a>
-      <a href="https://libertymutual.atlassian.net/jira/plans" target="_blank">
-        <img src="jira.png" alt="JIRA Logo" />
+      <a href="jira.png" alt="JIRA Logo" />
       </a>
     </div>
-    <div class="main-content" style="margin-left: 100px; max-height: 100vh; overflow-y: auto;">
+    <div class="main-content" style="margin-left: 100px; max-height: 100vh; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none;">
       <header>EZ-EPICS</header>
       <p>Your intelligent app for generating, managing,<br />and automating EPICS and User Stories.</p>
 
@@ -102,7 +106,7 @@
             <label for="projectKey">Project Key</label>
           </div>
           <div class="floating-label">
-            <input type="text" id="jiraLabel" placeholder=" " required value="GenAI Generated" />
+            <input type="text" id="jiraLabel" placeholder=" " required value="NONE" />
             <label for="jiraLabel">Label for Epics / User Stories</label>
           </div>
           <div class="floating-label">
